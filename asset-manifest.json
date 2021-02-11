@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/machine-finder/static/css/main.450b6050.chunk.css",
+    "main.js": "/machine-finder/static/js/main.ba0ad7ec.chunk.js",
+    "main.js.map": "/machine-finder/static/js/main.ba0ad7ec.chunk.js.map",
+    "runtime-main.js": "/machine-finder/static/js/runtime-main.b1ad313a.js",
+    "runtime-main.js.map": "/machine-finder/static/js/runtime-main.b1ad313a.js.map",
+    "static/js/2.dd55f1c2.chunk.js": "/machine-finder/static/js/2.dd55f1c2.chunk.js",
+    "static/js/2.dd55f1c2.chunk.js.map": "/machine-finder/static/js/2.dd55f1c2.chunk.js.map",
+    "static/js/3.a9eb27cc.chunk.js": "/machine-finder/static/js/3.a9eb27cc.chunk.js",
+    "static/js/3.a9eb27cc.chunk.js.map": "/machine-finder/static/js/3.a9eb27cc.chunk.js.map",
+    "index.html": "/machine-finder/index.html",
+    "static/css/main.450b6050.chunk.css.map": "/machine-finder/static/css/main.450b6050.chunk.css.map",
+    "static/js/2.dd55f1c2.chunk.js.LICENSE.txt": "/machine-finder/static/js/2.dd55f1c2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b1ad313a.js",
+    "static/js/2.dd55f1c2.chunk.js",
+    "static/css/main.450b6050.chunk.css",
+    "static/js/main.ba0ad7ec.chunk.js"
+  ]
+}
