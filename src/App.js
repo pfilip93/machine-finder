@@ -16,6 +16,61 @@ const CloseIcon = () => (
 export default function App() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
+  const [data, setData] = React.useState(null);
+  const [list, setList] = React.useState(null);
+
+  async function fetchData() {
+    const res = await fetch("data.json");
+    const json = await res.json();
+
+    return json;
+  }
+
+  const generateList = () => {
+    const getProducts = (phrase) => {
+      const arr = data
+        .map((group) => {
+          const products = group.products.filter((prod) => {
+            const name = prod.name.toLowerCase();
+            const words = phrase.split(" ");
+
+            let valid = true;
+
+            for (let i = 0; i < words.length; i++) {
+              if (name.indexOf(words[i]) === -1) {
+                valid = false;
+                break;
+              }
+            }
+
+            return valid;
+          });
+
+          return products.length
+            ? {
+                ...group,
+                products,
+              }
+            : null;
+        })
+        .filter((item) => item);
+
+      return arr;
+    };
+
+    if (data) {
+      const phrase = name.toLowerCase().trim();
+      const products = phrase.length ? getProducts(phrase) : [];
+
+      setList(products);
+    } else {
+      (async () => {
+        setData(await fetchData());
+      })();
+    }
+  };
+
+  React.useEffect(generateList, [data, name]);
 
   return (
     <div className="App">
@@ -52,6 +107,7 @@ export default function App() {
             <ul>
               <li>Lorem ipsum</li>
             </ul>
+            {console.log(list)}
           </div>
         </div>
       )}
