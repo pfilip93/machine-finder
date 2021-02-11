@@ -19,15 +19,21 @@ export default function App() {
   const [data, setData] = React.useState(null);
   const [list, setList] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   async function fetchData() {
-    const res = await fetch("data.json");
-    const json = await res.json();
+    try {
+      const res = await fetch("data.json");
+      const json = await res.json();
 
-    return json;
+      return json;
+    } catch (e) {
+      setError("Failed to fetch");
+    }
   }
 
   const generateList = () => {
+    setError(null);
     setLoading(true);
 
     const getProducts = (phrase) => {
@@ -115,22 +121,28 @@ export default function App() {
             <h3 className="message">Loading....</h3>
           ) : (
             <>
-              {!!(name && !list.length) && (
-                <h3 className="message">No results....</h3>
-              )}
+              {error ? (
+                <h3 className="message">{error}</h3>
+              ) : (
+                <>
+                  {!!(name && !list.length) && (
+                    <h3 className="message">No results....</h3>
+                  )}
 
-              <div className="list">
-                {list.map((group) => (
-                  <div key={group.name}>
-                    <h3>{group.name}</h3>
-                    <ul>
-                      {group.products.map((prod) => (
-                        <li key={prod.name}>{prod.name}</li>
-                      ))}
-                    </ul>
+                  <div className="list">
+                    {list.map((group) => (
+                      <div key={group.name}>
+                        <h3>{group.name}</h3>
+                        <ul>
+                          {group.products.map((prod) => (
+                            <li key={prod.name}>{prod.name}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              )}
             </>
           )}
         </div>
