@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("cicking main button opens modal", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const button = screen.getByText(/Start inquiry/i);
+
+  expect(button).toBeInTheDocument();
+
+  fireEvent.click(button);
+
+  expect(screen.getByText(/Direct request/i)).toBeInTheDocument();
 });
