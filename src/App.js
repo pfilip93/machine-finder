@@ -124,24 +124,26 @@ export default function App() {
               {error ? (
                 <h3 className="message">{error}</h3>
               ) : (
-                <>
-                  {!!(name && !list.length) && (
-                    <h3 className="message">No results....</h3>
-                  )}
+                !!name && (
+                  <>
+                    {!list.length && (
+                      <h3 className="message">No results....</h3>
+                    )}
 
-                  <div className="list">
-                    {list.map((group) => (
-                      <div key={group.name}>
-                        <h3>{group.name}</h3>
-                        <ul>
-                          {group.products.map((prod) => (
-                            <li key={prod.name}>{prod.name}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </>
+                    <div className="list">
+                      {list.map((group) => (
+                        <div key={group.name}>
+                          <h3>{group.name}</h3>
+                          <ul>
+                            {group.products.map((prod) => (
+                              <li key={prod.name}>{prod.name}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )
               )}
             </>
           )}
