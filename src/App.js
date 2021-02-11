@@ -32,60 +32,56 @@ export default function App() {
     }
   }
 
-  const generateList = () => {
-    setError(null);
-    setLoading(true);
-
-    const getProducts = (phrase) => {
-      const arr = data
-        .map((group) => {
-          const products = group.products.filter((prod) => {
-            const name = prod.name.toLowerCase();
-            const words = phrase.split(" ");
-
-            let valid = true;
-
-            for (let i = 0; i < words.length; i++) {
-              if (name.indexOf(words[i]) === -1) {
-                valid = false;
-                break;
-              }
-            }
-
-            return valid;
-          });
-
-          return products.length
-            ? {
-                ...group,
-                products,
-              }
-            : null;
-        })
-        .filter((item) => item);
-
-      return arr;
-    };
-
-    if (data) {
-      const phrase = name.toLowerCase().trim();
-      const products = phrase.length ? getProducts(phrase) : [];
-
-      setList(products);
-    } else {
-      (async () => {
-        setData(await fetchData());
-      })();
-    }
-
-    setLoading(false);
-  };
-
   React.useEffect(() => {
     if (name) {
-      generateList();
+      setError(null);
+      setLoading(true);
+
+      const getProducts = (phrase) => {
+        const arr = data
+          .map((group) => {
+            const products = group.products.filter((prod) => {
+              const name = prod.name.toLowerCase();
+              const words = phrase.split(" ");
+
+              let valid = true;
+
+              for (let i = 0; i < words.length; i++) {
+                if (name.indexOf(words[i]) === -1) {
+                  valid = false;
+                  break;
+                }
+              }
+
+              return valid;
+            });
+
+            return products.length
+              ? {
+                  ...group,
+                  products,
+                }
+              : null;
+          })
+          .filter((item) => item);
+
+        return arr;
+      };
+
+      if (data) {
+        const phrase = name.toLowerCase().trim();
+        const products = phrase.length ? getProducts(phrase) : [];
+
+        setList(products);
+      } else {
+        (async () => {
+          setData(await fetchData());
+        })();
+      }
+
+      setLoading(false);
     }
-  }, [name]);
+  }, [name, data]);
 
   return (
     <div className="App">
