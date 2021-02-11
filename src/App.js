@@ -17,7 +17,8 @@ export default function App() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
   const [data, setData] = React.useState(null);
-  const [list, setList] = React.useState(null);
+  const [list, setList] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   async function fetchData() {
     const res = await fetch("data.json");
@@ -27,6 +28,8 @@ export default function App() {
   }
 
   const generateList = () => {
+    setLoading(true);
+
     const getProducts = (phrase) => {
       const arr = data
         .map((group) => {
@@ -68,6 +71,8 @@ export default function App() {
         setData(await fetchData());
       })();
     }
+
+    setLoading(false);
   };
 
   React.useEffect(generateList, [data, name]);
@@ -102,13 +107,28 @@ export default function App() {
             onChange={(event) => setName(event.target.value)}
           />
 
-          <div className="list">
-            <h3>Category #1</h3>
-            <ul>
-              <li>Lorem ipsum</li>
-            </ul>
-            {console.log(list)}
-          </div>
+          {loading ? (
+            <h3 className="message">Loading....</h3>
+          ) : (
+            <>
+              {!!(name.length && !list.length) && (
+                <h3 className="message">No results....</h3>
+              )}
+
+              <div className="list">
+                {list.map((group) => (
+                  <div key={group.name}>
+                    <h3>{group.name}</h3>
+                    <ul>
+                      {group.products.map((prod) => (
+                        <li key={prod.name}>{prod.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
