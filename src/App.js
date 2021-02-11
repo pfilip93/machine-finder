@@ -75,7 +75,11 @@ export default function App() {
     setLoading(false);
   };
 
-  React.useEffect(generateList, [data, name]);
+  React.useEffect(() => {
+    if (name) {
+      generateList();
+    }
+  }, [name]);
 
   return (
     <div className="App">
@@ -111,7 +115,7 @@ export default function App() {
             <h3 className="message">Loading....</h3>
           ) : (
             <>
-              {!!(name.length && !list.length) && (
+              {!!(name && !list.length) && (
                 <h3 className="message">No results....</h3>
               )}
 
